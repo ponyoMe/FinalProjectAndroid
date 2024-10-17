@@ -7,7 +7,12 @@ import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -40,21 +45,27 @@ fun BottomNav(
         BottomNavItems.Profile
     )
 
-    BottomNavigation {
-        items.forEach { screen ->
+    var selectedItem by remember { mutableStateOf(0) }
+    BottomNavigation(
+        backgroundColor = Color.White
+    ) {
+        items.forEachIndexed { index,screen ->
             BottomNavigationItem(
                 icon = {
                     Icon(painter = painterResource(id = screen.icon),
                         contentDescription = screen.route,
-                        modifier = Modifier.size(30.dp))
+                        modifier = Modifier.size(30.dp),
+                        tint = if (selectedItem == index) Color(0xFF3D3BFF) else Color.Gray
+                    )
                 },
                 onClick = {
+                    selectedItem = index
                     navController.navigate(screen.route) {
                         popUpTo(navController.graph.startDestinationId)
                         launchSingleTop = true
                     }
                 },
-                selected = false
+                selected = selectedItem == index
             )
         }
     }

@@ -51,8 +51,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-           // OnBoardingScreen()
-            NavLogic()
+           //OnBoardingScreen()
+           NavLogic()
         }
     }
 }
@@ -66,8 +66,6 @@ val screen= listOf(
     ScreenInfo(R.drawable.wfh_4, "Узнавай о премьерах"),
     ScreenInfo(R.drawable.wfh_8, "Создавай коллекции"),
     ScreenInfo(R.drawable.wfh_2, "Делись с друзьями")
-
-
 )
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -116,8 +114,7 @@ fun OnBoardingScreen () {
         Spacer(modifier = Modifier.height(190.dp))
 
         HorizontalPager(
-              state = pagerState,
-
+              state = pagerState
         ) {screenIndex->
             val screenData = screen[screenIndex]
 
